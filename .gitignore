@@ -7,13 +7,19 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+*.swo
 
-# Dependencies / tooling
+# Dependencies and logs
 node_modules/
 npm-debug.log*
+*.log
 
-# Secrets — никогда не коммитьте service_role key
+# Local deploy tooling
+.vercel/
+.netlify/
+supabase/.temp/
+
+# Secrets — never commit service_role or sb_secret keys
 .env
 .env.*
 *.local
-supabase/.temp/
