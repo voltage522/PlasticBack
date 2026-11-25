@@ -14,7 +14,7 @@ create table if not exists public.savings_records (
   created_at    timestamptz   not null default now(),  -- дата создания записи
 
   -- Границы совпадают с config.limits в js/config.js
-  constraint savings_amount_range check (amount_kzt > 0 and amount_kzt <= 21000),
+  constraint savings_amount_range check (amount_kzt > 0 and amount_kzt <= 21700),
   constraint savings_waste_range  check (waste_items >= 0 and waste_items <= 30),
 
   -- Защита от дублирования: одна запись на анонимного пользователя в день
@@ -58,7 +58,7 @@ begin
     raise exception 'invalid_anon_id' using errcode = '22023';
   end if;
 
-  if p_amount is null or p_amount <= 0 or p_amount > 21000 then
+  if p_amount is null or p_amount <= 0 or p_amount > 21700 then
     raise exception 'invalid_amount' using errcode = '22023';
   end if;
 

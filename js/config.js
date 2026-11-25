@@ -21,6 +21,7 @@
     return Object.freeze(obj);
   }
 
+  // Цены — средние по Казахстану (Алматы, Астана, Шымкент, Актобе, Караганда), ноябрь 2026.
   var drinks = [
     {
       id: 'water',
@@ -44,7 +45,7 @@
       name: 'Кофе',
       shortName: 'Кофе',
       unitLabel: 'стакан навынос',
-      price: 1200,
+      price: 1250,
       defaultQuantity: 1,
       icon: 'assets/icons/drink-coffee.svg',
       nominalBottleVolumeLiters: 0,
@@ -60,8 +61,8 @@
       id: 'energy',
       name: 'Энергетические напитки',
       shortName: 'Энергетики',
-      unitLabel: 'банка 0,45 л',
-      price: 650,
+      unitLabel: 'банка 0,5 л',
+      price: 670,
       defaultQuantity: 0,
       icon: 'assets/icons/drink-energy.svg',
       nominalBottleVolumeLiters: 0,
@@ -144,31 +145,31 @@
       ]
     },
 
-    /** Материальные эквиваленты годовых расходов. Цены временные. */
+    /** Материальные эквиваленты годовых расходов. Средние цены по Казахстану. */
     equivalents: [
       {
         id: 'gym',
         title: 'Абонементов в фитнес-зал',
-        note: 'по 15 000 ₸ за месяц',
-        price: 15000,
+        note: 'по 24 500 ₸ за месяц',
+        price: 24500,
         icon: 'assets/icons/eq-gym.svg',
-        temporary: true
+        temporary: false
       },
       {
         id: 'cinema',
         title: 'Билетов в кино',
-        note: 'по 2 500 ₸',
-        price: 2500,
+        note: 'по 2 700 ₸',
+        price: 2700,
         icon: 'assets/icons/eq-cinema.svg',
-        temporary: true
+        temporary: false
       },
       {
         id: 'doner',
         title: 'Донеров',
-        note: 'по 1 800 ₸',
-        price: 1800,
+        note: 'по 1 450 ₸',
+        price: 1450,
         icon: 'assets/icons/eq-doner.svg',
-        temporary: true
+        temporary: false
       }
     ],
 
@@ -206,7 +207,7 @@
 
     /** Ограничения для валидации (продублированы в database/schema.sql). */
     limits: {
-      maxDailyAmount: maxDailyAmount, // 21 000 ₸ при текущих ценах
+      maxDailyAmount: maxDailyAmount, // 21 700 ₸ при текущих ценах
       maxDailyWasteItems: slider.max * drinks.length // 30 упаковок
     }
   });
