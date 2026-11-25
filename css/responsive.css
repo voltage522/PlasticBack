@@ -1,0 +1,188 @@
+/* =========================================================
+   PlasticBack — адаптивность
+   База рассчитана на 375–390 px, ниже — сужение и расширение.
+   ========================================================= */
+
+/* Узкие телефоны (≤ 374 px, например 360) */
+@media (max-width: 374px) {
+  :root { --gutter: 14px; }
+  .tab { padding: 8px 6px; font-size: 13px; }
+
+  .drinks { padding: 16px 16px 2px; }
+  .drink__head { gap: 12px; }
+  .drink__icon { width: 46px; height: 46px; border-radius: 12px; }
+  .drink__icon img { width: 32px; height: 32px; }
+  .drink__name { font-size: 16px; }
+  .drink__qty-value { font-size: 32px; }
+  .drink__control { gap: 10px; }
+  .step-btn { width: 40px; height: 40px; }
+
+  .summary__item dd { font-size: 20px; }
+  .panel { padding: 18px 16px; }
+  .fact dd { font-size: 21px; }
+  .fact:nth-child(even) { padding-left: 12px; }
+  .eq__count { font-size: 38px; }
+}
+
+/* Невысокие телефоны: компактная итоговая панель */
+@media (max-width: 767px) and (max-height: 640px) {
+  .summary { padding: 10px; }
+  .summary__totals { padding-bottom: 8px; }
+  .summary .btn { min-height: 46px; }
+}
+
+/* Планшеты (≥ 768 px) */
+@media (min-width: 768px) {
+  :root { --gutter: 28px; --header-h: 72px; }
+
+  .topbar__inner { flex-wrap: nowrap; padding-top: 14px; padding-bottom: 14px; }
+  .tabs { width: auto; }
+  .tab { padding: 8px 20px; }
+
+  .container { padding-bottom: 72px; }
+  .hero { padding: 48px 0 32px; }
+  .hero--compact { padding: 40px 0 28px; }
+  .lead { font-size: 19px; }
+
+  .panel { padding: 24px; }
+  .panel__title { font-size: 21px; }
+  .drinks { padding: 24px 28px 6px; }
+  .drink { padding: 24px 0; }
+
+  /* Строка напитка: всё в одну линию */
+  .drink {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "head head" "control foot";
+    column-gap: 28px;
+    align-items: center;
+  }
+  .drink__head { grid-area: head; }
+  .drink__control { grid-area: control; margin-top: 14px; }
+  .drink__foot { grid-area: foot; margin-top: 14px; flex-direction: column; gap: 2px; text-align: right; min-width: 150px; }
+  .drink__icon { width: 60px; height: 60px; border-radius: 16px; }
+  .drink__icon img { width: 42px; height: 42px; }
+  .drink__name { font-size: 19px; }
+  .drink__price { font-size: 14px; }
+  .drink__qty-value { font-size: 42px; }
+
+  .summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 16px 16px 24px;
+  }
+  .summary__totals { display: flex; gap: 28px; padding: 0; }
+  .summary__item--month { display: block; }
+  .summary__item dd { font-size: 24px; }
+
+  .results { gap: 16px; padding-top: 28px; }
+  .wrapped { padding: 36px 36px 34px; min-height: 380px; }
+  .wrapped__label { font-size: 28px; }
+
+  .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .fact { padding: 16px 16px 4px; border-top: 0; border-left: 1px solid var(--line); }
+  .fact:first-child { padding-left: 0; border-left: 0; }
+  .fact:nth-child(even) { padding-left: 16px; }
+  .facts--tracker { padding: 20px 24px; }
+  .facts--tracker .fact { padding-top: 0; }
+
+  .equivalents { padding: 36px; }
+  .equivalents__title { font-size: 28px; }
+  .eq-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .eq {
+    grid-template-columns: 1fr;
+    align-content: start;
+    padding: 18px 20px 4px;
+    border-top: 0;
+    border-left: 1px solid rgba(16, 24, 16, .14);
+  }
+  .eq:first-child { padding-left: 0; border-left: 0; }
+  .eq__count { grid-row: auto; font-size: 64px; margin-bottom: 8px; }
+
+  .potential__list { grid-template-columns: 1fr 1fr; column-gap: 24px; }
+  .potential .btn { width: auto; }
+
+  .room__steps li { font-size: 12px; }
+
+  .saved { padding: 32px; }
+
+  .global__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .global__grid > div { padding: 0 16px; border-top: 0; border-left: 1px solid var(--line-strong); }
+  .global__grid > div:first-child { padding-left: 0; border-left: 0; }
+
+  .toast { bottom: 28px; }
+}
+
+/* Ноутбуки и десктоп (≥ 1024 px) */
+@media (min-width: 1024px) {
+  :root { --gutter: 32px; }
+
+  .calc-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .summary {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+    bottom: auto;
+    display: block;
+    margin-top: 48px;
+    padding: 28px;
+    box-shadow: none;
+  }
+  .summary__totals { display: block; }
+  .summary__item + .summary__item { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .16); }
+  .summary__item dd { font-size: 28px; }
+  .summary__item--year dd { font-size: 44px; letter-spacing: -.03em; }
+  .summary__hint { display: block; margin-top: 18px; }
+  .summary .btn { width: 100%; }
+
+  /* Итоги: сетка из 12 колонок */
+  .results { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .results > .wrapped { grid-column: 1 / -1; padding: 48px; min-height: 440px; }
+  .results > .spend { grid-column: 1 / span 6; }
+  .results > .room { grid-column: 7 / -1; }
+  .results > .equivalents { grid-column: 1 / -1; padding: 48px; }
+  .results > .potential { grid-column: 1 / -1; }
+
+  .results > .spend .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .results > .spend .fact { padding: 14px 0; border-left: 0; border-top: 1px solid var(--line); }
+  .results > .spend .fact:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--line); }
+  .results > .spend .split__legend { grid-template-columns: 1fr; }
+
+  .wrapped__label { font-size: 32px; }
+  .equivalents__title { font-size: 32px; }
+  .eq__count { font-size: 80px; }
+
+  .potential {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto;
+    column-gap: 32px;
+    align-items: center;
+    padding: 28px 32px;
+  }
+  .potential__list { margin: 0; }
+  .potential__item { border-top: 0; border-left: 1px solid var(--line); padding: 0 0 0 24px; }
+
+  /* Трекер: две колонки */
+  .tracker-layout { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .tracker-col { gap: 16px; }
+  .saved { padding: 40px; }
+  .facts--tracker { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 4px 24px; }
+  .facts--tracker .fact { padding: 18px 0; border-left: 0; border-top: 1px solid var(--line); }
+  .facts--tracker .fact:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--line); }
+  .facts--tracker .fact:nth-child(-n+2) { border-top: 0; }
+}
+
+/* Большие экраны (≥ 1440 px) */
+@media (min-width: 1440px) {
+  :root { --maxw: 1320px; }
+  .calc-layout { grid-template-columns: minmax(0, 1fr) 400px; gap: 56px; }
+  .hero h1 { font-size: 84px; }
+  .panel { padding: 28px; }
+}

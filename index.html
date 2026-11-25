@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>PlasticBack — сколько денег ты выпиваешь?</title>
+  <meta name="description" content="PlasticBack — эко-финтех калькулятор: сколько ты тратишь на напитки навынос, сколько упаковки производишь и сколько можешь сэкономить.">
+  <meta name="theme-color" content="#F5F8EF">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="logo" href="#calculator" aria-label="PlasticBack — к калькулятору">
+        <img src="assets/icons/logo.svg" alt="" width="34" height="34">
+        <span>Plastic<b>Back</b></span>
+      </a>
+      <nav class="tabs" aria-label="Разделы приложения">
+        <a class="tab" href="#calculator" data-nav="calculator">Калькулятор</a>
+        <a class="tab" href="#results" data-nav="results">Итоги</a>
+        <a class="tab" href="#tracker" data-nav="tracker">Трекер</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+
+    <!-- ЭКРАН 1 — КАЛЬКУЛЯТОР -->
+    <section class="screen" data-screen="calculator" aria-labelledby="calc-title" hidden>
+      <div class="calc-layout">
+        <div class="calc-main">
+          <div class="hero">
+            <h1 id="calc-title" tabindex="-1">Сколько денег ты <span class="hl">выпиваешь?</span></h1>
+            <p class="lead">Укажи, сколько напитков навынос ты покупаешь в&nbsp;день. Посчитаем расходы, упаковку и&nbsp;то, сколько можно вернуть себе.</p>
+          </div>
+
+          <div class="panel drinks">
+            <div class="panel__head">
+              <h2 class="panel__title">Покупки за день</h2>
+              <span class="panel__meta">от 0 до 10</span>
+            </div>
+            <div id="drink-list"></div>
+          </div>
+        </div>
+
+        <aside class="summary" aria-label="Итог по расходам">
+          <dl class="summary__totals" aria-live="polite">
+            <div class="summary__item">
+              <dt>В день</dt>
+              <dd id="sum-daily">0 ₸</dd>
+            </div>
+            <div class="summary__item summary__item--month">
+              <dt>В месяц</dt>
+              <dd id="sum-monthly">0 ₸</dd>
+            </div>
+            <div class="summary__item summary__item--year">
+              <dt>В год</dt>
+              <dd id="sum-yearly">0 ₸</dd>
+            </div>
+          </dl>
+          <p class="summary__hint" id="sum-hint"></p>
+          <button class="btn btn--lime btn--block" type="button" id="btn-calculate">
+            Рассчитать мои расходы
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 2 — РЕЗУЛЬТАТЫ -->
+    <section class="screen" data-screen="results" aria-labelledby="results-title" hidden>
+
+      <div class="results-empty panel" id="results-empty" hidden>
+        <img src="assets/images/room-clean.svg" alt="Чистая комната без пластика" class="results-empty__img">
+        <h2 tabindex="-1">Ты не покупаешь напитки навынос</h2>
+        <p>Расходы — 0 ₸, в комнате чисто. Если привычки другие, укажи их в калькуляторе.</p>
+        <a class="btn btn--primary" href="#calculator">Открыть калькулятор</a>
+      </div>
+
+      <div class="results" id="results-content">
+        <article class="wrapped reveal" style="--i:0">
+          <h2 class="wrapped__label" id="results-title" tabindex="-1">За год ты тратишь на&nbsp;напитки навынос</h2>
+          <p class="wrapped__value" id="res-yearly">0 ₸</p>
+          <p class="wrapped__sub" id="res-yearly-sub"></p>
+        </article>
+
+        <article class="panel spend reveal" style="--i:1">
+          <h2 class="panel__title">Из чего складывается</h2>
+          <dl class="facts">
+            <div class="fact">
+              <dt>В день</dt>
+              <dd id="res-daily">0 ₸</dd>
+            </div>
+            <div class="fact">
+              <dt>В месяц</dt>
+              <dd id="res-monthly">0 ₸</dd>
+            </div>
+            <div class="fact">
+              <dt>Упаковок за год</dt>
+              <dd id="res-packages">0</dd>
+              <span class="fact__note">бутылки, стаканы и банки</span>
+            </div>
+            <div class="fact">
+              <dt>Воды в бутылках за год</dt>
+              <dd id="res-liters">0 л</dd>
+              <span class="fact__note" id="res-liters-note"></span>
+            </div>
+          </dl>
+
+          <div class="split" id="res-split">
+            <div class="split__bar" id="res-split-bar" aria-hidden="true"></div>
+            <ul class="split__legend" id="res-split-legend"></ul>
+          </div>
+        </article>
+
+        <article class="panel room reveal" style="--i:2">
+          <div class="room__head">
+            <h2 class="panel__title">Комната через год: <span id="room-title">Чисто</span></h2>
+            <span class="badge" id="room-badge" data-level="0">0 бутылок</span>
+          </div>
+          <div class="room__stage">
+            <img id="room-img" alt="" decoding="async">
+            <div class="room__fallback" id="room-fallback" hidden>
+              <span id="room-fallback-text">Иллюстрация</span>
+            </div>
+          </div>
+          <div class="room__meter" role="meter" aria-label="Уровень пластика в комнате" aria-valuemin="0" aria-valuemax="100" id="room-meter">
+            <div class="room__meter-fill" id="room-meter-fill"></div>
+          </div>
+          <ol class="room__steps" id="room-steps"></ol>
+          <p class="room__desc" id="room-desc"></p>
+          <p class="note">Учитываются только пластиковые бутылки. Стаканы и банки не приравниваются к бутылкам, пока коэффициенты не утверждены.</p>
+        </article>
+
+        <article class="equivalents reveal" style="--i:3">
+          <h2 class="equivalents__title">На эти деньги за год можно было&nbsp;бы купить</h2>
+          <ul class="eq-list" id="eq-list"></ul>
+          <p class="note">Цены ориентировочные и будут уточнены.</p>
+        </article>
+
+        <article class="panel potential reveal" style="--i:4">
+          <h2 class="panel__title">Сколько можно сэкономить за год</h2>
+          <ul class="potential__list" id="potential-list"></ul>
+          <a class="btn btn--primary btn--lg" href="#tracker" id="btn-start-saving">
+            Начать экономить
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ЭКРАН 3 — ТРЕКЕР -->
+    <section class="screen" data-screen="tracker" aria-labelledby="tracker-title" hidden>
+      <div class="hero hero--compact">
+        <h1 class="screen-title" id="tracker-title" tabindex="-1">Трекер экономии</h1>
+        <p class="lead">Отмечай дни без напитков навынос и смотри, как растут сбережения.</p>
+      </div>
+
+      <div class="tracker-layout">
+        <div class="tracker-col">
+          <article class="saved" id="saved-card">
+            <h2 class="saved__label">Сэкономлено</h2>
+            <p class="saved__value" id="tr-saved">0 ₸</p>
+            <p class="saved__sub" id="tr-saved-sub">Отметь первый день без покупок</p>
+            <div class="progress" role="progressbar" aria-label="Прогресс к цели" aria-valuemin="0" aria-valuemax="100" id="tr-progress">
+              <div class="progress__bar" id="tr-progress-bar"></div>
+            </div>
+            <div class="progress__labels">
+              <span id="tr-progress-label">0 из 30 дней</span>
+              <span id="tr-progress-pct">0%</span>
+            </div>
+          </article>
+
+          <dl class="panel facts facts--tracker">
+            <div class="fact">
+              <dt>Отмечено дней</dt>
+              <dd id="tr-days">0</dd>
+            </div>
+            <div class="fact">
+              <dt>Серия</dt>
+              <dd id="tr-streak">0</dd>
+            </div>
+            <div class="fact">
+              <dt>Не куплено бутылок</dt>
+              <dd id="tr-bottles">0</dd>
+            </div>
+            <div class="fact">
+              <dt>Упаковок не выброшено</dt>
+              <dd id="tr-packages">0</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="tracker-col">
+          <article class="panel mark">
+            <div class="mark__head">
+              <h2 class="panel__title">Сегодня без покупок?</h2>
+              <span class="panel__meta" id="tr-today-label"></span>
+            </div>
+            <p class="mark__text" id="tr-mark-text"></p>
+            <button class="btn btn--primary btn--block btn--lg" type="button" id="btn-mark">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+              <span id="btn-mark-label">Отметить день без покупок</span>
+            </button>
+            <p class="mark__hint" id="tr-mark-hint"></p>
+            <div class="days" id="tr-days-grid" role="list" aria-label="Последние 14 дней"></div>
+          </article>
+
+          <article class="panel panel--soft global" aria-live="polite">
+            <div class="global__head">
+              <img src="assets/icons/icon-globe.svg" alt="" width="24" height="24">
+              <h2 class="panel__title">Все пользователи PlasticBack</h2>
+            </div>
+            <div id="global-body"></div>
+          </article>
+
+          <p class="sync-note" id="sync-note" hidden></p>
+
+          <button class="btn btn--text" type="button" id="btn-reset">Сбросить мой прогресс</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Строка напитка -->
+  <template id="tpl-drink">
+    <div class="drink">
+      <div class="drink__head">
+        <div class="drink__icon"><img alt="" width="40" height="40"></div>
+        <div class="drink__info">
+          <h3 class="drink__name"></h3>
+          <p class="drink__price"></p>
+        </div>
+        <div class="drink__qty">
+          <output class="drink__qty-value">0</output>
+          <span class="drink__qty-label">в день</span>
+        </div>
+      </div>
+      <div class="drink__control">
+        <button class="step-btn" type="button" data-step="-1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg>
+        </button>
+        <div class="drink__slider">
+          <input class="range" type="range">
+          <div class="range-scale" aria-hidden="true"><span>0</span><span>5</span><span>10</span></div>
+        </div>
+        <button class="step-btn" type="button" data-step="1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>
+        </button>
+      </div>
+      <p class="drink__foot">
+        <span>В день <strong class="drink__daily">0 ₸</strong></span>
+        <span>В год <strong class="drink__yearly">0 ₸</strong></span>
+      </p>
+    </div>
+  </template>
+
+  <!-- Подтверждение сброса: действие необратимо, поэтому прерываем -->
+  <dialog class="modal" id="reset-modal" aria-labelledby="reset-title">
+    <form method="dialog" class="modal__inner">
+      <h2 id="reset-title">Сбросить прогресс?</h2>
+      <p>Отмеченные дни и накопленная экономия на этом устройстве будут удалены. Отменить это нельзя.</p>
+      <p class="note">Сегодняшний день повторно отметить не получится. Записи, уже отправленные в общую статистику, останутся.</p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" value="cancel" type="submit">Оставить</button>
+        <button class="btn btn--danger" value="confirm" type="submit" id="btn-reset-confirm">Сбросить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg class="toast__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    <span id="toast-text"></span>
+  </div>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/calculator.js" defer></script>
+  <script src="js/tracker.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/supabase.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
